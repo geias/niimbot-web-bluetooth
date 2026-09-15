@@ -35,6 +35,17 @@
       "speed": 1,
       "name_prefixes": ["B1"]
     },
+    "d11": {
+  "label": "Niimbot D11",
+  "id": 512,
+  "dpi": 203,
+  "protocol": "v4",
+  "task": "b1",
+  "density": 3,
+  "label_type": 1,
+  "speed": 1,
+  "name_prefixes": ["D11"]
+},
     "d11h": {
       "_note": "Niimbot D11_H — model id 528, protocol 5, advertised name e.g. 'D11_H-H225012706'. Discovered and printed 2026-08-13; the v4 command sequence works. Printhead is 144 px, MEASURED: solid black sent at 177 px and at 144 px came out exactly the same width, so both were clipped at the same limit, while 136 px came out narrower. That also matches the value the printer itself reports in dc[03] bytes 4-5 (00 90 = 144). dpi 300 follows: 144 px over the ~12.2 mm printed band.",
       "label": "Niimbot D11_H",
