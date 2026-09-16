@@ -315,13 +315,38 @@
   }
 
   async function sendWait(cmd, data, wantResp, timeoutMs) {
-    let entry;
-    const wait = new Promise((resolve) => { entry = registerWait(wantResp, resolve); });
-    await send(cmd, data);
-    const res = await Promise.race([wait, sleep(timeoutMs).then(() => null)]);
-    if (!res) clearWait(entry); // clear on timeout; a late reply still finds nothing to match
-    if (!res) logMsg(`⚠ no response to ${h2(cmd)} (wanted ${wantResp == null ? "any" : h2(wantResp)}) after ${timeoutMs}ms`);
-    return res; // { cmd, data } or null
+  let entry;
+
+  logMsg(
+    `🔎 WAIT TX ${h2(cmd)} data=${Array.from(data || []).map(h2).join(" ")} → espera ${wantResp == null ? "qualquer" : h2(wantResp)}`
+  );
+
+  const wait = new Promise((resolve) => {
+    entry = registerWait(wantResp, resolve);
+  });
+
+  await send(cmd, data);
+
+  const res = await Promise.race([
+    wait,
+    sleep(timeoutMs).then(() => null)
+  ]);
+
+  if (!res) {
+    clearWait(entry);
+
+    logMsg(
+      `❌ TIMEOUT ${h2(cmd)} → não recebeu ${wantResp == null ? "resposta" : h2(wantResp)} em ${timeoutMs}ms`
+    );
+
+    return null;
+  }
+
+  logMsg(
+    `✅ ACK RX ${h2(res.cmd)} data=${Array.from(res.data || []).map(h2).join(" ")}`
+  );
+
+  return res;
   }
 
   async function getPrintStatus(timeoutMs) {
