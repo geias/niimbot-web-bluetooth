@@ -368,6 +368,7 @@
   // two origins below are NOT the same kind of claim — see each entry.
   const MODEL_IDS = {
     4096: { label: "Niimbot B1",     task: "b1", dpi: 203, paced: true,  bundle: true,  batteryScale: "enum" },     // MEASURED 2026-09-10 against the official NIIMBOT app: chargeLevel read 4 and the app showed 100% — a percent scale would have shown 4%, so enum is what explains the reading
+    512: { label: "Niimbot D11",     task: "b1", dpi: 203, paced: true, bundle: false, batteryScale: "enum" },
     4097: { label: "Niimbot B1 Pro", task: "v4", dpi: 300, paced: false, bundle: false, batteryScale: "percent" }, // MEASURED here: chargeLevel read 0x50 (80) across six captures and 0x28 (40) in another, and on that same connection 0x40[0x0a] answered the same 0x28 — consistent with a 0-100 percent, not a 0-4 level
     4098: { label: "Niimbot B1 SE",  task: "b1", dpi: 203, paced: true,  bundle: false, batteryScale: "enum" },     // "enum" is the upstream default; not verified on this model
     4608: { label: "Niimbot M2-H",   task: "b1", dpi: 300, paced: false, bundle: true,  batteryScale: "enum" },  // B1-Pro-class: b1 command sequence (per niimbluelib; v4 tested no better) + fast writes; batteryScale "enum" is the upstream default, not verified on this model
